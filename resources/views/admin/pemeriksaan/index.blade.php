@@ -54,7 +54,13 @@
                         <td>{{ $pemeriksaan->tekanan_darah }}</td>
                         <td>{{ $pemeriksaan->suhu_badan }}</td>
                         <td>{{ $pemeriksaan->keluhan }}</td>
-                        <td>{{ $pemeriksaan->status_pemeriksaan }}</td>
+                        <td>
+                          @if ($pemeriksaan->status_pemeriksaan == "belum")
+                              <a href="/pemeriksaan/{{ $pemeriksaan->id }}/diperiksa" onclick="return confirm('Yakin Akan Mengubah Status Antrian..?')" class="btn btn-dark btn-sm">Belum</a>
+                          @elseif($pemeriksaan->status_pemeriksaan == "selesai")
+                              <button class="btn btn-success btn-sm">Selesai</button>
+                          @endif
+                        </td>
                         <td>
                             <a href="/pemeriksaan/{{ $pemeriksaan->id }}/edit" class="btn btn-warning">Edit</a>
     
