@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Antrian;
 use App\Models\Pasien;
+use App\Models\Antrian;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PemeriksaanController extends Controller
 {
@@ -79,6 +80,16 @@ class PemeriksaanController extends Controller
             'antrians'=>Antrian::all(),
             'pasiens'=>Pasien::all()
         ]);
+    }
+
+    public function edit_status($pemeriksaan,$status,)
+    {
+        DB::table('pemeriksaans')->where('id',$pemeriksaan)->update([
+            'status_pemeriksaan' => $status
+        ]);
+        // alihkan halaman ke halaman pegawai
+        return redirect('/pemeriksaan');
+        
     }
 
     /**
