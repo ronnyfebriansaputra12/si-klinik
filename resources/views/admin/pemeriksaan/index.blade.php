@@ -56,7 +56,7 @@
                         <td>{{ $pemeriksaan->keluhan }}</td>
                         <td>
                           @if ($pemeriksaan->status_pemeriksaan == "belum")
-                              <a href="/pemeriksaan/{{ $pemeriksaan->id }}/diperiksa" onclick="return confirm('Yakin Akan Mengubah Status Antrian..?')" class="btn btn-dark btn-sm">Belum</a>
+                              <a href="/pemeriksaan/{{ $pemeriksaan->id }}/selesai" onclick="return confirm('Yakin Akan Mengubah Status Antrian..?')" class="btn btn-dark btn-sm">Belum</a>
                           @elseif($pemeriksaan->status_pemeriksaan == "selesai")
                               <button class="btn btn-success btn-sm">Selesai</button>
                           @endif
