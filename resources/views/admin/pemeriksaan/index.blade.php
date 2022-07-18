@@ -62,7 +62,7 @@
                           @endif
                         </td>
                         <td>
-                            <a href="/pemeriksaan/{{ $pemeriksaan->id }}/edit" class="btn btn-warning">Edit</a>
+                            <a href="/pemeriksaan/{{ $pemeriksaan->id }}/edit" class="btn btn-warning mb-1">Edit</a>
     
                             <form action="/pemeriksaan/{{ $pemeriksaan->id }}" method="post" class="d-inline">
                                 @method('DELETE')
