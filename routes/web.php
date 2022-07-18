@@ -32,6 +32,10 @@ Route::resource('obat',ObatController::class)->middleware('guest');
 Route::resource('antrian',AntrianController::class)->middleware('guest');
 Route::resource('pemeriksaan',PemeriksaanController::class)->middleware('guest');
 
+Route::get('/pemeriksaan/{id}/{status}','App\Http\Controllers\PemeriksaanController@edit_status'
+    // return view('admin.antrian.edit');
+);
+
 Route::get('/antrian/{id}/{status}','App\Http\Controllers\AntrianController@edit_status'
     // return view('admin.antrian.edit');
 );
