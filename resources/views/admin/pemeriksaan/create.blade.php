@@ -7,62 +7,85 @@
     <div class="card-body">
         <form action ="/pemeriksaan" method="post">
             @csrf
+            <div class="row">
+                <div class="col-md-6">
             <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">NIK</label>
-            <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{old('nik')}}"  autofocus>
-            @error('nik')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-            </div>   
+                <label for="jurusan" class="form-label">Antrian</label>
+                <select class="form-select" name="antrian_id" aria-label="Default select example">
+                    <option selected></option>
+                    @foreach($antrians as $antrian)
+                        @if (old('jurusan_id') == $antrian->id)
+                            <option value="{{ $antrian->id }}" selected>{{ $antrian->no_antrian }}</option>
+                        @else
+                            <option value="{{ $antrian->id }}">{{ $antrian->no_antrian }}</option>  
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
 
+        <div class="col-md-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                <input type="text" class="form-control @error('nama_pasien') is-invalid @enderror" id="nama_pasien" name="nama_pasien" value="{{old('nama_pasien')}}"  autofocus>
-                @error('nama_pasien')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>   
+                <label for="jurusan" class="form-label">Pasien</label>
+                <select class="form-select" name="pasien_id" aria-label="Default select example">
+                    <option selected></option>
+                    @foreach($pasiens as $pasien)
+                        @if (old('jurusan_id') == $pasien->id)
+                            <option value="{{ $pasien->id }}" selected>{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>
+                        @else
+                            <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>  
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        </div>
 
-            <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Umur</label>
-            <input type="text" class="form-control @error('umur_pasien') is-invalid @enderror" id="umur_pasien" name="umur_pasien" value="{{old('umur_pasien')}}"  autofocus>
-            @error('umur_pasien')
-                <div class="invalid-feedback">
-                    {{ $message }}
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Suhu Badan</label>
+                    <input type="text" class="form-control @error('keluhan') is-invalid @enderror" id="keluhan" name="suhu_badan" value="{{old('keluhan')}}"  autofocus>
+                    @error('keluhan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-            @enderror
             </div>
 
-            <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Alamat</label>
-            <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{old('alamat')}}"  autofocus>
-            @error('alamat')
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Tekanan Darah</label>
+                    <input type="text" class="form-control @error('tekanan_darah') is-invalid @enderror" id="tekanan_darah" name="tekanan_darah" value="{{old('tekanan_darah')}}"  autofocus>
+                    @error('tekanan_darah')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>   
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Keluhan</label>
+            <input type="text" class="form-control @error('keluhan') is-invalid @enderror" id="keluhan" name="keluhan" value="{{old('keluhan')}}"  autofocus>
+            @error('keluhan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
             @enderror
-            </div>
+        </div>
             
             <div class="mb-3">
-            <label class="form-label">Jenis Kelamin</label>
-            <div class="d-flex">
-                <div class="form-check me-3">
-                    <input type="radio" class="form-check-input" name="jenis_kelamin" value="L" {{ old('jenis_kelamin')=='L' ? 'checked' : ''}} checked>Laki-laki
-                </div>
-                <div class="form-check me-3">
-                    <input type="radio" class="form-check-input" name="jenis_kelamin" value="P" @checked(old('jenis_kelamin')=='P')>Perempuan
-                </div>
+                <label for="status_antrian" class="form-label">Status Pemeriksaan</label>
+                <select class="form-select" name="status_pemeriksaan" aria-label="Default select example">
+                    <option selected></option>
+                    <option value="selesai">Selesai</option>
+                    <option value="belum">Belum</option>
+                </select>
             </div>
-            @error('jenis_kelamin')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-        </div> 
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
