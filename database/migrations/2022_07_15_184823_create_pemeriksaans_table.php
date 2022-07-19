@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('antrian_id');
             $table->foreignId('pasien_id');
+            $table->foreignId('dokter_id');
             $table->integer('tekanan_darah');
             $table->integer('suhu_badan');
             $table->string('keluhan',50);
