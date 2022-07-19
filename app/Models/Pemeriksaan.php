@@ -20,4 +20,9 @@ class Pemeriksaan extends Model
     {
         return $this->belongsTo(Antrian::class);
     }
+
+    public function dokter()
+    {
+        return $this->belongsTo(Dokter::class);
+    }
 }
