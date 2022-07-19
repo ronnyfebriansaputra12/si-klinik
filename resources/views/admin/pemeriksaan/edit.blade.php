@@ -42,6 +42,20 @@
         </div>
         </div>
 
+        <div class="mb-3">
+            <label for="jurusan" class="form-label">Dokter</label>
+            <select class="form-select" name="dokter_id" aria-label="Default select example">
+                <option selected></option>
+                @foreach($dokters as $dokter)
+                    @if (old('dokter_id',$pemeriksaans->dokter_id) == $dokter->id)
+                        <option value="{{ $dokter->id }}" selected>{{ $dokter->nama_dokter }}</option>
+                    @else
+                        <option value="{{ $dokter->id }}">{{ $dokter->nama_dokter }}</option>  
+                    @endif
+                @endforeach
+            </select>
+        </div>
+
 
         <div class="row">
             <div class="col-md-6">
