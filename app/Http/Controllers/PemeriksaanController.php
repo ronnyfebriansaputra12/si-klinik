@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pasien;
 use App\Models\Antrian;
+use App\Models\Dokter;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,8 @@ class PemeriksaanController extends Controller
     {
         return view('admin.pemeriksaan.create',[
             'antrians'=>Antrian::all(),
-            'pasiens'=>Pasien::all()
+            'pasiens'=>Pasien::all(),
+            'dokters'=>Dokter::all()
         ]);
     }
 
@@ -46,6 +48,7 @@ class PemeriksaanController extends Controller
         $validationData = $request->validate([
             'antrian_id'=>'required',
             'pasien_id'=>'required',
+            'dokter_id'=>'required',
             'tekanan_darah'=>'required',
             'suhu_badan'=>'required',
             'keluhan'=>'required',
@@ -78,7 +81,8 @@ class PemeriksaanController extends Controller
         return view('admin.pemeriksaan.edit',[
             'pemeriksaans'=>$pemeriksaan,
             'antrians'=>Antrian::all(),
-            'pasiens'=>Pasien::all()
+            'pasiens'=>Pasien::all(),
+            'dokters'=>Dokter::all()
         ]);
     }
 
@@ -104,6 +108,7 @@ class PemeriksaanController extends Controller
         $validationData = $request->validate([
             'antrian_id'=>'required',
             'pasien_id'=>'required',
+            'dokter_id'=>'required',
             'tekanan_darah'=>'required',
             'suhu_badan'=>'required',
             'keluhan'=>'required',
