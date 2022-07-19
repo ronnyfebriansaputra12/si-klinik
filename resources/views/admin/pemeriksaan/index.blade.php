@@ -38,6 +38,7 @@
                             <th scope="col">No</th>
                             <th scope="col">No Antrian</th>
                             <th scope="col">Pasien</th>
+                            <th scope="col">Dokter</th>
                             <th scope="col">Tekanan Darah</th>
                             <th scope="col">Suhu Badan</th>
                             <th scope="col">Keluhan</th>
@@ -51,6 +52,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pemeriksaan->antrian->no_antrian }}</td>
                         <td>{{ $pemeriksaan->pasien->nama_pasien }}</td>
+                        <td>{{ $pemeriksaan->dokter->nama_dokter }}</td>
                         <td>{{ $pemeriksaan->tekanan_darah }}</td>
                         <td>{{ $pemeriksaan->suhu_badan }}</td>
                         <td>{{ $pemeriksaan->keluhan }}</td>
