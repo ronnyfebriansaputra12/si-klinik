@@ -9,36 +9,50 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
-            <div class="mb-3">
-                <label for="jurusan" class="form-label">Antrian</label>
-                <select class="form-select" name="antrian_id" aria-label="Default select example">
-                    <option selected></option>
-                    @foreach($antrians as $antrian)
-                        @if (old('jurusan_id') == $antrian->id)
-                            <option value="{{ $antrian->id }}" selected>{{ $antrian->no_antrian }}</option>
-                        @else
-                            <option value="{{ $antrian->id }}">{{ $antrian->no_antrian }}</option>  
-                        @endif
-                    @endforeach
-                </select>
+                    <div class="mb-3">
+                        <label for="jurusan" class="form-label">Antrian</label>
+                        <select class="form-select" name="antrian_id" aria-label="Default select example">
+                            <option selected></option>
+                            @foreach($antrians as $antrian)
+                                @if (old('jurusan_id') == $antrian->id)
+                                    <option value="{{ $antrian->id }}" selected>{{ $antrian->no_antrian }}</option>
+                                @else
+                                    <option value="{{ $antrian->id }}">{{ $antrian->no_antrian }}</option>  
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="jurusan" class="form-label">Pasien</label>
+                    <select class="form-select" name="pasien_id" aria-label="Default select example">
+                        <option selected></option>
+                        @foreach($pasiens as $pasien)
+                            @if (old('jurusan_id') == $pasien->id)
+                                <option value="{{ $pasien->id }}" selected>{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>
+                            @else
+                                <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>  
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label for="jurusan" class="form-label">Pasien</label>
-                <select class="form-select" name="pasien_id" aria-label="Default select example">
-                    <option selected></option>
-                    @foreach($pasiens as $pasien)
-                        @if (old('jurusan_id') == $pasien->id)
-                            <option value="{{ $pasien->id }}" selected>{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>
-                        @else
-                            <option value="{{ $pasien->id }}">{{ $pasien->nama_pasien }} - {{ $pasien->nik }}</option>  
-                        @endif
-                    @endforeach
-                </select>
-            </div>
-        </div>
+        <div class="mb-3">
+            <label for="jurusan" class="form-label">Dokter</label>
+            <select class="form-select" name="dokter_id" aria-label="Default select example">
+                <option selected></option>
+                @foreach($dokters as $dokter)
+                    @if (old('dokter_id') == $dokter->id)
+                        <option value="{{ $dokter->id }}" selected>{{ $dokter->nama_dokter }}</option>
+                    @else
+                        <option value="{{ $dokter->id }}">{{ $dokter->nama_dokter }}</option>  
+                    @endif
+                @endforeach
+            </select>
         </div>
 
 
@@ -46,8 +60,8 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Suhu Badan</label>
-                    <input type="text" class="form-control @error('keluhan') is-invalid @enderror" id="keluhan" name="suhu_badan" value="{{old('keluhan')}}"  autofocus>
-                    @error('keluhan')
+                    <input type="text" class="form-control @error('suhu_badan') is-invalid @enderror" id="suhu_badan" name="suhu_badan" value="{{old('suhu_badan')}}"  autofocus>
+                    @error('suhu_badan')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
