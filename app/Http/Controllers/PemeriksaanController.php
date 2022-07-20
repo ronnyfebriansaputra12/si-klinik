@@ -30,11 +30,32 @@ class PemeriksaanController extends Controller
      */
     public function create()
     {
-        return view('admin.pemeriksaan.create',[
-            'antrians'=>Antrian::all(),
-            'pasiens'=>Pasien::all(),
-            'dokters'=>Dokter::all()
-        ]);
+
+        $pemeriksaans = Pemeriksaan::all();
+        $antrians = Antrian::all();
+        $pasiens = Pasien::all();
+        $dokters = Dokter::all();
+
+
+        $q = DB::table('pemeriksaans')->select(DB::raw('MAX(RIGHT(kode_pemeriksaan,4)) as kode'));
+        $kd = "";
+        if($q->count()>0){
+            foreach ($q->get() as $k) {
+                $tmp = ((int)$k->kode)+1;
+                $kd = sprintf("%04s", $tmp);
+
+            }
+        }else{
+            $kd = "0001";
+        }
+        
+        
+        return view('admin.pemeriksaan.create',compact('pemeriksaans','antrians','pasiens','dokters','kd'));
+        // return view('admin.pemeriksaan.create',[
+        //     'antrians'=>Antrian::all(),
+        //     'pasiens'=>Pasien::all(),
+        //     'dokters'=>Dokter::all()
+        // ]);
     }
 
     /**
@@ -46,6 +67,7 @@ class PemeriksaanController extends Controller
     public function store(Request $request)
     {
         $validationData = $request->validate([
+            'kode_pemeriksaan'=>'required',
             'antrian_id'=>'required',
             'pasien_id'=>'required',
             'dokter_id'=>'required',
@@ -106,6 +128,7 @@ class PemeriksaanController extends Controller
     public function update(Request $request, Pemeriksaan $pemeriksaan)
     {
         $validationData = $request->validate([
+            'kode_pemeriksaan'=>'required',
             'antrian_id'=>'required',
             'pasien_id'=>'required',
             'dokter_id'=>'required',
