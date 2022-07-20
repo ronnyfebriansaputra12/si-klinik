@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Obat;
 use App\Models\ResepObat;
+use App\Models\RekamMedis;
 use Illuminate\Http\Request;
 
 class ResepObatController extends Controller
@@ -14,7 +16,9 @@ class ResepObatController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.resep_obat.index',[
+            'resep_obat'=>ResepObat::latest()->paginate(8)
+        ]);
     }
 
     /**
@@ -24,7 +28,10 @@ class ResepObatController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.resep_obat.create',[
+            'rekam_medis'=>RekamMedis::all(),
+            'obats'=>Obat::all(),
+        ]);
     }
 
     /**
@@ -35,7 +42,16 @@ class ResepObatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'rekam_medis_id'=>'required',
+            'obat_id'=>'required',
+            'jumlah_obat'=>'required',
+            'keterangan'=>'required',
+        ]);
+
+        ResepObat::create($validationData);
+        return redirect('/resep-obat')->with('pesan_tambah','Data Berhasil di Tambah');
+
     }
 
     /**
@@ -57,7 +73,11 @@ class ResepObatController extends Controller
      */
     public function edit(ResepObat $resepObat)
     {
-        //
+        return view('admin.resep_obat.edit',[
+            'resep_obat'=>$resepObat,
+            'obats'=>Obat::all(),
+            'rekam_medis'=>RekamMedis::all()
+        ]);
     }
 
     /**
@@ -69,7 +89,15 @@ class ResepObatController extends Controller
      */
     public function update(Request $request, ResepObat $resepObat)
     {
-        //
+        $validationData = $request->validate([
+            'rekam_medis_id'=>'required',
+            'obat_id'=>'required',
+            'jumlah_obat'=>'required',
+            'keterangan'=>'required',
+        ]);
+
+        ResepObat::where('id',$resepObat->id)->update($validationData);
+        return redirect('/resep-obat')->with('pesan_edit','Data Berhasil di Ubah');
     }
 
     /**
@@ -78,8 +106,10 @@ class ResepObatController extends Controller
      * @param  \App\Models\ResepObat  $resepObat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ResepObat $resepObat)
+    public function destroy(ResepObat $resepObat,$id)
     {
-        //
+        ResepObat::destroy($id);
+        return redirect('/resep-obat')->with('pesan_hapus','Data Berhasil di Hapus');
+
     }
 }
