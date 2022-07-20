@@ -48,6 +48,33 @@
         </a>
       </li>
 
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('pembayaran') ? 'active' : '' }}" href="{{ url('pembayaran') }}">
+          <i class="bi bi-person"></i>
+          <span>Pembayaran</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('rekam-medis') ? 'active' : '' }}" href="{{ url('rekam-medis') }}">
+          <i class="bi bi-person"></i>
+          <span>Rekam Medis</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('resep-obat') ? 'active' : '' }}" href="{{ url('resep-obat') }}">
+          <i class="bi bi-person"></i>
+          <span>Resep Obat</span>
+        </a>
+      </li>
+
 
 
 
