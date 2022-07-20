@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembayaran;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -14,7 +15,9 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pembayaran.index',[
+            'pembayarans'=>Pembayaran::latest()->paginate(8)
+        ]);
     }
 
     /**
@@ -24,7 +27,9 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pembayaran.create',[
+            'pemeriksaans'=>Pemeriksaan::all(),
+        ]);
     }
 
     /**
