@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pemeriksaan_id');
+            $table->foreignId('pasien_id');
             $table->date('tanggal_bayar');
             $table->integer('total_bayar');
             $table->enum('status_bayar',array('lunas','pending'));
