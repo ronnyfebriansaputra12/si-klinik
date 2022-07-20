@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_rekam_medis');
             $table->foreignId('pemeriksaan_id');
             $table->foreignId('dokter_id');
             $table->string('diagnosa',50);
