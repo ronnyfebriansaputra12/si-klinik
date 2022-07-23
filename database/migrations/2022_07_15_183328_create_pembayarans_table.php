@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_pembayaran',20);
             $table->foreignId('pemeriksaan_id');
             $table->foreignId('pasien_id');
             $table->date('tanggal_bayar');
-            $table->integer('total_bayar');
+            $table->string('total_bayar');
             $table->enum('status_bayar',array('lunas','pending'));
             $table->timestamps();
         });

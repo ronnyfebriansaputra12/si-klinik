@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use App\Models\Pembayaran;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
 {
@@ -20,6 +22,15 @@ class PembayaranController extends Controller
         ]);
     }
 
+    public function print($id)
+    {
+        return view('admin.pembayaran.struk',[
+            'pembayaran'=>Pembayaran::find($id)
+
+
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,9 +38,30 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        return view('admin.pembayaran.create',[
-            'pemeriksaans'=>Pemeriksaan::all(),
-        ]);
+        $pemeriksaans = Pemeriksaan::all();
+        $pasiens = Pasien::all();
+        $q = DB::table('pembayarans')->select(DB::raw('MAX(RIGHT(kode_pembayaran,4)) as kode'));
+        $kd = "";
+        if($q->count()>0){
+            foreach ($q->get() as $k) {
+                $tmp = ((int)$k->kode)+1;
+                $kd = sprintf("%04s", $tmp);
+
+            }
+        }else{
+            $kd = "0001";
+        }
+
+
+        // $bayar =  DB::table('pembayarans')->select('total_bayar');
+        // $byr = $bayar;
+        $byr = "100000";
+        
+        
+        
+        
+        
+        return view('admin.pembayaran.create',compact('pemeriksaans','pasiens','kd','byr'));
     }
 
     /**
@@ -40,7 +72,18 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'kode_pembayaran'=>'required',
+            'pemeriksaan_id'=>'required',
+            'pasien_id'=>'required',
+            'tanggal_bayar'=>'required',
+            'total_bayar'=>'required',
+            'status_bayar'=>'required'
+        ]);
+
+        Pembayaran::create($validationData);
+        return redirect('/pembayaran')->with('pesan_tambah','Data Berhasil di Tambah');
+
     }
 
     /**
@@ -62,7 +105,21 @@ class PembayaranController extends Controller
      */
     public function edit(Pembayaran $pembayaran)
     {
-        //
+        return view('admin.pembayaran.edit',[
+            'pembayarans'=>$pembayaran,
+            'pemeriksaans'=>Pemeriksaan::all(),
+            'pasiens'=>Pasien::all()
+        ]);
+    }
+
+    public function edit_status($pembayaran,$status,)
+    {
+        DB::table('pembayarans')->where('id',$pembayaran)->update([
+            'status_bayar' => $status
+        ]);
+        // alihkan halaman ke halaman pegawai
+        return redirect('/pembayaran');
+        
     }
 
     /**
@@ -74,7 +131,17 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, Pembayaran $pembayaran)
     {
-        //
+        $validationData = $request->validate([
+            'kode_pembayaran'=>'required',
+            'pemeriksaan_id'=>'required',
+            'pasien_id'=>'required',
+            'tanggal_bayar'=>'required',
+            'total_bayar'=>'required',
+            'status_bayar'=>'required'
+        ]);
+
+        Pembayaran::where('id',$pembayaran->id)->update($validationData);
+        return redirect('/pembayaran')->with('pesan_edit','Data Berhasil di Ubah');
     }
 
     /**
@@ -85,6 +152,8 @@ class PembayaranController extends Controller
      */
     public function destroy(Pembayaran $pembayaran)
     {
-        //
+        Pembayaran::destroy($pembayaran->id);
+        return redirect('/pembayaran')->with('pesan_hapus','Data Berhasil di Hapus');
+
     }
 }

@@ -26,7 +26,6 @@
     <section class="section mt-3">
         <div class="row">
           <div class="col-lg-12">
-  
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Pemeriksan</h5>
@@ -35,7 +34,7 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
+                            <th scope="col">Kode Pemeriksaan</th>
                             <th scope="col">No Antrian</th>
                             <th scope="col">Pasien</th>
                             <th scope="col">Dokter</th>
@@ -49,7 +48,7 @@
                 <tbody>
                     @foreach ($pemeriksaans as $pemeriksaan)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pemeriksaan->kode_pemeriksaan }}</td>
                         <td>{{ $pemeriksaan->antrian->no_antrian }}</td>
                         <td>{{ $pemeriksaan->pasien->nama_pasien }}</td>
                         <td>{{ $pemeriksaan->dokter->nama_dokter }}</td>
@@ -64,12 +63,12 @@
                           @endif
                         </td>
                         <td>
-                            <a href="/pemeriksaan/{{ $pemeriksaan->id }}/edit" class="btn btn-warning mb-1">Edit</a>
+                            <a href="/pemeriksaan/{{ $pemeriksaan->id }}/edit" class="btn btn-warning btn-sm mb-1">Edit</a>
     
                             <form action="/pemeriksaan/{{ $pemeriksaan->id }}" method="post" class="d-inline">
                                 @method('DELETE')
                             @csrf
-                                <button class="btn btn-danger" onclick="return confirm('Yakin Akan Menghapus Data..?')" type="submit">Delete</button>
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Akan Menghapus Data..?')" type="submit">Delete</button>
                             </form>
                         </td>
                     </tr>
